@@ -1,16 +1,11 @@
 <resources>
-    <string name="app_name">SakeApp</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="app_name">呑兵衛アプリ</string>
+    <string name="activity_group_sns">飲みにケーションチャネル</string>
+    <!-- トップ画面 -->
+    <string name="explain">酒好きの、酒好きによる、酒好きのためのアプリ</string>
+    <!-- ボタンパーツ -->
+    <string name="button_to_group">飲みにケーション</string>
+    <string name="button_to_top">トップに戻る</string>
+    <string name="button_create_group">＋作成</string>
+    <string name="button_search_joined_group">参加しているグループ</string>
 </resources>
