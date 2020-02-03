@@ -8,16 +8,15 @@
 
     <Button
         android:id="@+id/to_top"
-        android:layout_width="349dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="377dp"
+        android:layout_height="48dp"
         android:text="@string/button_to_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.971" />
 
     <Button
         android:id="@+id/create_group"
@@ -25,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="17dp"
         android:text="@string/button_create_group"
+        app:layout_constraintBottom_toTopOf="@+id/communityGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,9 +36,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="17dp"
         android:text="@string/button_search_joined_group"
+        app:layout_constraintBottom_toTopOf="@+id/communityGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toEndOf="@+id/create_group"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/communityGroup"
+        android:layout_width="377dp"
+        android:layout_height="447dp"
+        app:layout_constraintBottom_toTopOf="@+id/to_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
+
 </android.support.constraint.ConstraintLayout>
