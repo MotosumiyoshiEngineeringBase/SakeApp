@@ -7,7 +7,7 @@
     tools:context=".GroupSNSActivity">
 
     <Button
-        android:id="@+id/to_top"
+        android:id="@+id/to_foward"
         android:layout_width="377dp"
         android:layout_height="48dp"
         android:text="@string/button_to_top"
@@ -48,7 +48,7 @@
         android:id="@+id/communityGroup"
         android:layout_width="377dp"
         android:layout_height="447dp"
-        app:layout_constraintBottom_toTopOf="@+id/to_top"
+        app:layout_constraintBottom_toTopOf="@+id/to_foward"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"

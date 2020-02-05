@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".GroupSNSActivity" android:label="@string/activity_group_sns"></activity>
+        <activity android:name=".CommunityTimeLineActivity" android:label="@string/activity_community_timeline"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

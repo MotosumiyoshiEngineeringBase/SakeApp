@@ -1,11 +1,15 @@
 <resources>
+    <!-- タイトル系 -->
     <string name="app_name">呑兵衛アプリ</string>
     <string name="activity_group_sns">飲みニティ</string>
+    <string name="activity_community_timeline">タイムライン</string>
     <!-- トップ画面 -->
     <string name="explain">酒好きの、酒好きによる、酒好きのためのアプリ</string>
     <!-- UIパーツ -->
     <string name="button_to_group">飲みにケーション</string>
     <string name="button_to_top">トップに戻る</string>
+    <string name="button_to_foward">戻る</string>
+    <string name="button_to_next">次へ</string>
     <string name="button_create_group">＋作成</string>
     <string name="button_search_joined_group">参加しているグループ</string>
     <string name="description">pictures</string>
