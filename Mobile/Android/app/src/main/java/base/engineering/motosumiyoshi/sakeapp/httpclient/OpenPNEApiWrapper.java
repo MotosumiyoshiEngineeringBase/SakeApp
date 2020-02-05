@@ -1,13 +1,11 @@
-package base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.httpclient;
+package base.engineering.motosumiyoshi.sakeapp.httpclient;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,15 +13,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import base.engineering.motosumiyoshi.sakeapp.GroupSNSActivity;
 import base.engineering.motosumiyoshi.sakeapp.R;
-import base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.view.adapter.CommunityListAdapter;
-import base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.model.Community;
+import base.engineering.motosumiyoshi.sakeapp.adapter.CommunityListAdapter;
+import base.engineering.motosumiyoshi.sakeapp.model.Community;
 
 //OpenPNEのApiWrapperクラスです。
 public class OpenPNEApiWrapper extends OkHttpCaller {

@@ -1,7 +1,6 @@
-package base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.view.adapter;
+package base.engineering.motosumiyoshi.sakeapp.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import base.engineering.motosumiyoshi.sakeapp.R;
-import base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.model.Community;
+import base.engineering.motosumiyoshi.sakeapp.model.Community;
 
 public class CommunityListAdapter extends BaseAdapter {
 

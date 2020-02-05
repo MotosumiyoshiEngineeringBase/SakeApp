@@ -1,4 +1,4 @@
-package base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.utility;
+package base.engineering.motosumiyoshi.sakeapp.utility;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;

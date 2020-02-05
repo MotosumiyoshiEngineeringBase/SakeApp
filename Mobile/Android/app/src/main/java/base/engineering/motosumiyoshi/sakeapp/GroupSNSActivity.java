@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.httpclient.OpenPNEApiWrapper;
+import base.engineering.motosumiyoshi.sakeapp.httpclient.OpenPNEApiWrapper;
 
 public class GroupSNSActivity extends AppCompatActivity {
 

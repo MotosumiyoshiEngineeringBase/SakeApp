@@ -1,4 +1,4 @@
-package base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.model;
+package base.engineering.motosumiyoshi.sakeapp.model;
 
 import com.google.gson.annotations.SerializedName;
 

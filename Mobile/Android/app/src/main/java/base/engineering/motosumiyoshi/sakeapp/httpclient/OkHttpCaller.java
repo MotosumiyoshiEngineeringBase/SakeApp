@@ -1,4 +1,4 @@
-package base.engineering.motosumiyoshi.sakeapp.base.engineering.motosumiyoshi.sakeapp.httpclient;
+package base.engineering.motosumiyoshi.sakeapp.httpclient;
 
 import android.os.Handler;
 import android.view.View;
