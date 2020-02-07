@@ -68,7 +68,8 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
     }
 
     /**
-     *
+     * @param community_id *必須	取得したいコミュニティタイムラインの、コミュニティIDを指定します。
+     * @param searchMaxSize	取得したいタイムラインの、取得件数を指定します。デフォルトは20。
      * */
     public void searchCommunityTimeLine (long community_id, int searchMaxSize,
                                          ListView targetView) {
@@ -115,6 +116,36 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
         call(uri.toString(), targetView, "sendMessegeToCommunity");
     }
 
+    /**
+     * @param target *必須	string	topic､community､memberが指定可能です｡
+     *        topic : 一件のトピックを取得します
+     *        community : コミュニティのトピック一覧を取得します
+     *        member : メンバーの所属するコミュニティのトピック一覧を取得します
+     * @param target_id *必須	integer	targetがtopicの場合はtopic_idを､targetがcommunityの場合はcommunity_idを､targetがmemberの場合はmember_idを指定します｡
+     * @param format    string	取得フォーマットを指定します｡miniとnormalが指定できます｡このフィールドがない場合はnormalフォーマットになります｡
+     * @param max_id    integer	取得したいトピックIDの最大値を指定します。
+     * @param since_id    integer	取得したいトピックIDの最小値を指定します。
+     * @param searchMaxSize    integer	取得したいトピックの、取得件数を指定します。このパラメータを指定しなかった場合のデフォルトは15です。
+     * */
+    public void searchCommunityTopics (String target, long target_id, String format, int since_id,
+                                       int max_id, int searchMaxSize,
+                                         ListView targetView) {
+        String SEARCH_ACTIVITY_PATH = "/api.php/topic/search.json";
+        Uri uri = new Uri.Builder()
+                .scheme(SCHEME)
+                .authority(DOMAIN)
+                .path(SEARCH_ACTIVITY_PATH)
+                .appendQueryParameter("target", target)
+                .appendQueryParameter("target_id", String.valueOf(target_id))
+                .appendQueryParameter("format", format)
+                .appendQueryParameter("max_id", String.valueOf(max_id))
+                .appendQueryParameter("since_id", String.valueOf(since_id))
+                .appendQueryParameter("count", String.valueOf(searchMaxSize))
+                .appendQueryParameter("apiKey", APIKEY)
+                .build();
+        call(uri.toString(), targetView, "searchCommunityTopics");
+    }
+
     @Override
     public void onResponseReceived(String responseBody, View targetView, String methodName) {
         Gson gson = new Gson();
@@ -146,6 +177,12 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
             listview.setAdapter(adapter);
         }  else if ("sendMessegeToCommunity".equals(methodName))  {  //コミュニティへのメッセージ送信
             //
+        } else if ("searchCommunityTopics".equals(methodName))  {  //特定コミュニティのトピックス取得
+            List<CommunityTimeLine> community = gson.fromJson( jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>(){}.getType());
+            ListView listview = (ListView) targetView;
+            CommunityTimeLineListAdapter adapter = new CommunityTimeLineListAdapter(this.context, R.layout.community_list);
+            adapter.setCommunityList(community);
+            listview.setAdapter(adapter);
         } else {
             //不明なメソッドの場合はエラーにすべし
         }
