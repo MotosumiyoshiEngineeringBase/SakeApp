@@ -24,8 +24,6 @@ import base.engineering.motosumiyoshi.sakeapp.adapter.CommunityTimeLineListAdapt
 import base.engineering.motosumiyoshi.sakeapp.model.Community;
 import base.engineering.motosumiyoshi.sakeapp.model.CommunityTimeLine;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 //OpenPNEのApiWrapperクラスです。
 public class OpenPNEApiWrapper extends OkHttpCaller {
 
@@ -172,7 +170,7 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
         } else if ("searchCommunityTimeLine".equals(methodName))  {  //特定コミュニティのタイムライン取得
             List<CommunityTimeLine> community = gson.fromJson( jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>(){}.getType());
             ListView listview = (ListView) targetView;
-            CommunityTimeLineListAdapter adapter = new CommunityTimeLineListAdapter(this.context, R.layout.community_list);
+            CommunityTimeLineListAdapter adapter = new CommunityTimeLineListAdapter(this.context, R.layout.timeline_list);
             adapter.setCommunityList(community);
             listview.setAdapter(adapter);
         }  else if ("sendMessegeToCommunity".equals(methodName))  {  //コミュニティへのメッセージ送信

@@ -2,17 +2,14 @@ package base.engineering.motosumiyoshi.sakeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import base.engineering.motosumiyoshi.sakeapp.httpclient.OpenPNEApiWrapper;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class GroupSNSActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 

@@ -64,9 +64,9 @@ public class CommunityTimeLineListAdapter extends BaseAdapter {
             convertView = this.layoutInflater.inflate(this.layoutID, null);
             holder = new ViewHolder();
             holder.img = convertView.findViewById(R.id.img_item);
-            holder.username = convertView.findViewById(R.id.text_community_name);
-            holder.body = convertView.findViewById(R.id.text_community_description);
-            holder.createdDate = convertView.findViewById(R.id.text_community_members);
+            holder.username = convertView.findViewById(R.id.text_user_name);
+            holder.body = convertView.findViewById(R.id.text_body);
+            holder.createdDate = convertView.findViewById(R.id.text_created_date);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
