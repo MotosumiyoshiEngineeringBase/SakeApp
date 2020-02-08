@@ -14,6 +14,8 @@
     <string name="button_search_joined_group">参加しているグループ</string>
     <string name="description">pictures</string>
     <string name="registeredMemberCounts">参加人数:</string>
+
+    <string name="button_to_camera">お酒を探す</string>
     <!-- 例外系 -->
     <string name="err_message_illegal">予期せぬエラーが発生しました</string>
 </resources>
