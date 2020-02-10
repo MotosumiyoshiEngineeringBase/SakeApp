@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 
 import base.engineering.motosumiyoshi.sakeapp.httpclient.OpenPNEApiWrapper;
 
-public class GroupSNSActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class CommunicationActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,22 +23,14 @@ public class GroupSNSActivity extends AppCompatActivity implements AdapterView.O
         // コミュニティをクリックすると、タイムラインを表示します。
         listView.setOnItemClickListener(this);
 
-        // トップページに戻るボタン
-        Button returnButton = findViewById(R.id.to_foward);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), CommunityTimeLineActivity.class);
+        Intent intent = new Intent(this.getApplicationContext(), TimelineMessagesActivity.class);
         // clickされたpositionのidを取得する。このIDはコミュニティIDに該当する。
         long communityId = parent.getAdapter().getItemId(position);
-        intent.putExtra("CommunityId", communityId); //TODO 実は引数のidでよかったりする？
+        intent.putExtra("CommunityId", communityId);
         startActivity(intent);
     }
 }

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button snsButton = findViewById(R.id.to_group);
         snsButton.setOnClickListener(v -> {
             startActivity(
-                new Intent(getApplicationContext(), GroupSNSActivity.class));
+                new Intent(getApplicationContext(), CommunicationActivity.class));
             });
 
         Button cameraButton = findViewById(R.id.to_camera);
