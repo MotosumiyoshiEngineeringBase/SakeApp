@@ -16,17 +16,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CameraActivity"></activity>
         <activity
-            android:name=".GroupSNSActivity"
+            android:name=".CommunicationActivity"
             android:label="@string/activity_group_sns" />
-        <activity
-            android:name=".CommunityTimeLineActivity"
-            android:label="@string/activity_community_timeline" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AbstractDialogsActivity" />
+        <activity android:name=".AbstractMessagesActivity" />
+        <activity android:name=".TimelineMessagesActivity" >
         </activity>
     </application>
 

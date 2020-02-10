@@ -4,19 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroupSNSActivity">
-
-    <Button
-        android:id="@+id/to_foward"
-        android:layout_width="377dp"
-        android:layout_height="48dp"
-        android:text="@string/button_to_top"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.281"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.971" />
+    tools:context=".CommunicationActivity">
 
     <Button
         android:id="@+id/create_group"
@@ -24,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="17dp"
         android:text="@string/button_create_group"
         app:layout_constraintBottom_toTopOf="@+id/communityGroup"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/search_group"
@@ -40,19 +28,20 @@
         android:text="@string/button_search_joined_group"
         app:layout_constraintBottom_toTopOf="@+id/communityGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintHorizontal_bias="0.663"
         app:layout_constraintStart_toEndOf="@+id/create_group"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ListView
         android:id="@+id/communityGroup"
-        android:layout_width="377dp"
-        android:layout_height="447dp"
-        app:layout_constraintBottom_toTopOf="@+id/to_foward"
+        android:layout_width="362dp"
+        android:layout_height="520dp"
+        android:layout_marginTop="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
