@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_navigation">
+
+    <item
+        android:id="@+id/to_camera"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="@string/button_to_camera" />
+
+    <item
+        android:id="@+id/to_group"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/button_to_group" />
+
+    <item
+        android:id="@+id/item3"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:title="item3" />
+
+</menu>
