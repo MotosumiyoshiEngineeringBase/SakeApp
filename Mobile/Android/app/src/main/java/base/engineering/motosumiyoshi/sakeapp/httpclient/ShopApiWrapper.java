@@ -8,7 +8,6 @@ public class ShopApiWrapper extends OkHttp3Wrapper {
 
     private static final String SCHEME = "https";
     private static final String DOMAIN = "app.rakuten.co.jp";
-    private static final String APIKEY = "1017267681684909351";
 
     public ShopApiWrapper() {
     }
@@ -20,7 +19,7 @@ public class ShopApiWrapper extends OkHttp3Wrapper {
                 scheme(SCHEME).
                 authority(DOMAIN).
                 path(SEARCH_ACTIVITY_PATH).
-                appendQueryParameter("applicationId", APIKEY).
+                appendQueryParameter("applicationId", getAPIKey()).
                 appendQueryParameter("generId", generId).
                 appendQueryParameter("keyword", keyword).
                 build();

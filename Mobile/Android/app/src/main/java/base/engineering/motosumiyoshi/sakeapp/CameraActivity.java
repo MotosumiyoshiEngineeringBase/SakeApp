@@ -27,7 +27,7 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.nio.ByteBuffer;
@@ -79,13 +79,20 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         // 描画エリアの初期化
-        this.textureView = findViewById(R.id.texture);
+        this.textureView = findViewById(R.id.image_area);
         this.textureView.setSurfaceTextureListener(textureListener);
 
         // 撮影ボタン押下時、撮影実行
-        Button captureButton = findViewById(R.id.btn_capture);
+        ImageButton captureButton = findViewById(R.id.btn_capture);
         captureButton.setOnClickListener(v -> {
             capture();
+        });
+
+        // ホームに戻るボタン
+        ImageButton homeButton = findViewById(R.id.btn_return_home);
+        homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         });
     }
 
