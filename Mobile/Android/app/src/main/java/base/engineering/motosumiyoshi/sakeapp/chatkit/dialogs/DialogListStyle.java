@@ -74,7 +74,7 @@ class DialogListStyle extends Style {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DialogsList);
 
-        //Item background
+        //Product background
         style.dialogItemBackground = typedArray.getColor(R.styleable.DialogsList_dialogItemBackground,
                 style.getColor(R.color.transparent));
         style.dialogUnreadItemBackground = typedArray.getColor(R.styleable.DialogsList_dialogUnreadItemBackground,
