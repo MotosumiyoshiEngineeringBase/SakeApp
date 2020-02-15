@@ -9,11 +9,24 @@ import com.google.api.services.vision.v1.VisionRequestInitializer;
 import com.google.api.services.vision.v1.model.AnnotateImageRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.Block;
+import com.google.api.services.vision.v1.model.BoundingPoly;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+import com.google.api.services.vision.v1.model.Page;
+import com.google.api.services.vision.v1.model.Paragraph;
+import com.google.api.services.vision.v1.model.Symbol;
 import com.google.api.services.vision.v1.model.TextAnnotation;
+import com.google.api.services.vision.v1.model.TextProperty;
+import com.google.api.services.vision.v1.model.Vertex;
+import com.google.api.services.vision.v1.model.Word;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import base.engineering.motosumiyoshi.sakeapp.model.LinePoint;
+import base.engineering.motosumiyoshi.sakeapp.model.OCRBox;
 
 public class VisionApiWrapper {
 
@@ -31,13 +44,13 @@ public class VisionApiWrapper {
 
     public interface VisionApiCallback {
 
-        void onSuccess(String result);
+        void onSuccess(List<OCRBox> result);
 
         void onFail();
     }
 
 
-    private class VisionApiAsyncTask extends AsyncTask<Void, Void, String> {
+    private class VisionApiAsyncTask extends AsyncTask<Void, Void, List<OCRBox>> {
 
         private Vision vision;
 
@@ -66,15 +79,37 @@ public class VisionApiWrapper {
         }
 
         @Override
-        protected String doInBackground(Void... params) {
-            String retVal = null;
+        protected List<OCRBox> doInBackground(Void... params) {
+            List<OCRBox> retVal = new ArrayList<>();
             try {
                 BatchAnnotateImagesResponse batchResponse =
                         vision.images().annotate(batchRequest).execute();
                 TextAnnotation annotation =
                         batchResponse.getResponses().get(0).getFullTextAnnotation();
                 if (annotation != null) {
-                    retVal = annotation.getText().replace("\n", "");
+                    List<Page> pages = annotation.getPages();
+                    for (Page page : pages) {
+                        for (Block block : page.getBlocks()) {
+                            for (Paragraph paragraph : block.getParagraphs()) {
+                                // テキスト
+                                StringBuilder textBuilder = new StringBuilder();
+                                for (Word word : paragraph.getWords()) {
+                                    for (Symbol symbol : word.getSymbols()) {
+                                        String text = symbol.getText();
+                                        textBuilder.append(text);
+                                    }
+                                }
+                                // 頂点
+                                List<LinePoint> points = new ArrayList<>();
+                                for (Vertex vertex : paragraph.getBoundingBox().getVertices()) {
+                                    int x = vertex.getX();
+                                    int y = vertex.getY();
+                                    points.add(new LinePoint(x, y));
+                                }
+                                retVal.add(new OCRBox(textBuilder.toString(), points));
+                            }
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,8 +118,8 @@ public class VisionApiWrapper {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            if (result == null) {
+        protected void onPostExecute(List<OCRBox> result) {
+            if (result == null || result.size() == 0) {
                 callback.onFail();
             } else {
                 callback.onSuccess(result);

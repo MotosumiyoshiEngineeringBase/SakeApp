@@ -57,7 +57,7 @@ public class ProductAdapter extends BaseAdapter {
         Product product = productList.get(position);
         Picasso.get().load(product.getImageURL()).into(holder.imageView);
         holder.nameView.setText(product.getItemName());
-        holder.priceView.setText(product.getItemPrice());
+        holder.priceView.setText(product.getItemPrice() + context.getString(R.string.yen));
         return convertView;
     }
 

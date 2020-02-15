@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/captured_image_view"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="114dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/product_view"
@@ -19,11 +19,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <base.engineering.motosumiyoshi.sakeapp.view.CanvasImageView
             android:id="@+id/captured_image"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_marginStart="5dp"
+            android:layout_width="84dp"
+            android:layout_height="114dp"
+            android:layout_marginLeft="10dp"
             app:srcCompat="@android:color/background_light" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_marginEnd="20dp"
             android:layout_toRightOf="@id/captured_image"
             android:layout_centerVertical="true"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 

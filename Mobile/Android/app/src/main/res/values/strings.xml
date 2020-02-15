@@ -23,6 +23,8 @@
     <string name="button_to_camera">お酒を探す</string>
     <string name="btn_take_picture">これ飲みたい</string>
     <string name="not_detect_ocr_text">判定できませんでした</string>
+    <string name="yen">円</string>
+    <string name="not_hit_product">商品が見つかりませんでした</string>
     <!-- 例外系 -->
     <string name="err_message_illegal">予期せぬエラーが発生しました</string>
 

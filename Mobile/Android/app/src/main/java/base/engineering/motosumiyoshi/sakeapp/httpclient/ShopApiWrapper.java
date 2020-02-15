@@ -2,6 +2,9 @@ package base.engineering.motosumiyoshi.sakeapp.httpclient;
 
 import android.net.Uri;
 
+import java.util.List;
+
+import base.engineering.motosumiyoshi.sakeapp.model.OCRBox;
 import okhttp3.Callback;
 
 public class ShopApiWrapper extends OkHttp3Wrapper {
@@ -12,16 +15,20 @@ public class ShopApiWrapper extends OkHttp3Wrapper {
     public ShopApiWrapper() {
     }
 
-    public void searchSakeProduct(String keyword, Callback callback) {
+    public void searchSakeProduct(List<String> keywords, Callback callback) {
         String SEARCH_ACTIVITY_PATH = "/services/api/IchibaItem/Search/20170706";
         String generId = "510915";
+        StringBuilder text = new StringBuilder();
+        for (String keyword : keywords) {
+            text.append(keyword + " ");
+        }
         Uri uri = new Uri.Builder().
                 scheme(SCHEME).
                 authority(DOMAIN).
                 path(SEARCH_ACTIVITY_PATH).
                 appendQueryParameter("applicationId", getAPIKey()).
                 appendQueryParameter("generId", generId).
-                appendQueryParameter("keyword", keyword).
+                appendQueryParameter("keyword", text.toString()).
                 build();
         call(uri.toString(), callback);
     }

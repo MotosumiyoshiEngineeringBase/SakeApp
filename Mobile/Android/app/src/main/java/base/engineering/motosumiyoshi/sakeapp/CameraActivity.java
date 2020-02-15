@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
-import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -39,7 +38,7 @@ import java.util.List;
 public class CameraActivity extends AppCompatActivity {
 
     // 描画プレビューエリア
-    private TextureView textureView;
+    private TextureView cameraView;
 
     // ローテーション定義
     private int orientation;
@@ -80,8 +79,8 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         // 描画エリアの初期化
-        this.textureView = findViewById(R.id.image_area);
-        this.textureView.setSurfaceTextureListener(textureListener);
+        this.cameraView = findViewById(R.id.image_area);
+        this.cameraView.setSurfaceTextureListener(textureListener);
 
         // 撮影ボタン押下時、撮影実行
         ImageButton captureButton = findViewById(R.id.btn_capture);
@@ -212,7 +211,7 @@ public class CameraActivity extends AppCompatActivity {
      */
     private void createCameraCaptureSession() {
         try {
-            SurfaceTexture texture = textureView.getSurfaceTexture();
+            SurfaceTexture texture = cameraView.getSurfaceTexture();
             texture.setDefaultBufferSize(
                     imageDimension.getWidth(), imageDimension.getHeight());
             Surface surface = new Surface(texture);
@@ -269,13 +268,13 @@ public class CameraActivity extends AppCompatActivity {
         try {
             CameraCharacteristics characteristics =
                     manager.getCameraCharacteristics(cameraDevice.getId());
-            int width = 172;
-            int height = 128;
+            int width = 84;
+            int height = 114;
             ImageReader reader =
                     ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<>(2);
             outputSurfaces.add(reader.getSurface());
-            outputSurfaces.add(new Surface(textureView.getSurfaceTexture()));
+            outputSurfaces.add(new Surface(cameraView.getSurfaceTexture()));
             final CaptureRequest.Builder captureBuilder =
                     cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
             captureBuilder.addTarget(reader.getSurface());
@@ -389,10 +388,10 @@ public class CameraActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startBackgroundThread();
-        if (textureView.isAvailable()) {
+        if (cameraView.isAvailable()) {
             openCamera();
         } else {
-            textureView.setSurfaceTextureListener(textureListener);
+            cameraView.setSurfaceTextureListener(textureListener);
         }
     }
 

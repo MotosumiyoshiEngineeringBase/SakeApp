@@ -1,16 +1,14 @@
 package base.engineering.motosumiyoshi.sakeapp;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,7 +22,9 @@ import java.util.List;
 import base.engineering.motosumiyoshi.sakeapp.adapter.ProductAdapter;
 import base.engineering.motosumiyoshi.sakeapp.httpclient.ShopApiWrapper;
 import base.engineering.motosumiyoshi.sakeapp.httpclient.VisionApiWrapper;
+import base.engineering.motosumiyoshi.sakeapp.model.OCRBox;
 import base.engineering.motosumiyoshi.sakeapp.model.Product;
+import base.engineering.motosumiyoshi.sakeapp.view.CanvasImageView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -54,21 +54,25 @@ public class ProductActivity extends AppCompatActivity {
 
         // 画像を表示
         Intent intent = getIntent();
-        ImageView imageView = findViewById(R.id.captured_image);
-        int orientation = intent.getIntExtra("ORIENTATION", 0);
+        CanvasImageView imageView = findViewById(R.id.captured_image);
         byte[] cameraImage = intent.getByteArrayExtra("CAPTURED_IMAGE");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(cameraImage, 0, cameraImage.length);
-        imageView.setImageBitmap(bitmap);
-        imageView.setRotation(orientation);
+        imageView.setImageBitmap(cameraImage);
 
         // 画像からテキストを抽出
         VisionApiWrapper visionApi = new VisionApiWrapper();
         TextView capturedImageLabel = findViewById(R.id.label_captured_img);
         visionApi.execOCR(cameraImage, new VisionApiWrapper.VisionApiCallback() {
             @Override
-            public void onSuccess(String result) {
-                capturedImageLabel.setText(result);
-                showProduct(result);
+            public void onSuccess(List<OCRBox> result) {
+                imageView.setLineBoxList(result);
+                List<String> keywords = new ArrayList<>();
+                StringBuilder text = new StringBuilder();
+                for (OCRBox box : result) {
+                    keywords.add(box.getText());
+                    text.append(box.getText() + " ");
+                }
+                capturedImageLabel.setText(text.toString());
+                showProduct(keywords);
             }
 
             @Override
@@ -81,9 +85,9 @@ public class ProductActivity extends AppCompatActivity {
     /**
      * 商品検索結果を表示
      */
-    private void showProduct(String keyword) {
+    private void showProduct(List<String> keywords) {
         ShopApiWrapper showApi = new ShopApiWrapper();
-        showApi.searchSakeProduct(keyword, new Callback() {
+        showApi.searchSakeProduct(keywords, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 // TODO
@@ -96,23 +100,32 @@ public class ProductActivity extends AppCompatActivity {
                 List<Product> productList = new ArrayList<>();
                 JsonObject jsonObj = gson.fromJson(responseBody, JsonObject.class);
                 JsonArray jsonArray = jsonObj.get("Items").getAsJsonArray();
-                for (JsonElement elem  : jsonArray) {
-                    JsonObject item = elem.getAsJsonObject().get("Item").getAsJsonObject();
-                    String itemName = item.get("itemName").getAsString();
-                    String price = item.get("itemPrice").getAsString();
-                    String imgUrl = null;
-                    for(JsonElement imgElem : item.get("smallImageUrls").getAsJsonArray()) {
-                        imgUrl = imgElem.getAsJsonObject().get("imageUrl").getAsString();
+                if (jsonArray.size() > 0) {
+                    for (JsonElement elem : jsonArray) {
+                        JsonObject item = elem.getAsJsonObject().get("Item").getAsJsonObject();
+                        String itemName = item.get("itemName").getAsString();
+                        String price = item.get("itemPrice").getAsString();
+                        String imgUrl = null;
+                        for (JsonElement imgElem : item.get("smallImageUrls").getAsJsonArray()) {
+                            imgUrl = imgElem.getAsJsonObject().get("imageUrl").getAsString();
+                        }
+                        String itemUrl = item.get("itemUrl").getAsString();
+                        productList.add(new Product(itemName, price, imgUrl, itemUrl));
+                        final Handler mainHandler = new Handler(Looper.getMainLooper());
+                        mainHandler.post(() -> {
+                            ListView productListView = findViewById(R.id.product_view);
+                            productListView.setAdapter(new ProductAdapter(
+                                    getApplicationContext(), R.layout.product_list, productList));
+                        });
                     }
-                    String itemUrl = item.get("itemUrl").getAsString();
-                    productList.add(new Product(itemName, price, imgUrl, itemUrl));
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                getString(R.string.not_hit_product),
+                                Toast.LENGTH_SHORT).show();
+                    });
                 }
-                final Handler mainHandler = new Handler(Looper.getMainLooper());
-                mainHandler.post(() -> {
-                    ListView productListView = findViewById(R.id.product_view);
-                    productListView.setAdapter(new ProductAdapter(
-                            getApplicationContext(), R.layout.product_list, productList));
-                });
             }
         });
     }
