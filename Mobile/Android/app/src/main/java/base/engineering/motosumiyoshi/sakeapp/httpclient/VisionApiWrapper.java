@@ -73,14 +73,13 @@ public class VisionApiWrapper {
                         vision.images().annotate(batchRequest).execute();
                 TextAnnotation annotation =
                         batchResponse.getResponses().get(0).getFullTextAnnotation();
-                retVal = annotation.getText();
+                if (annotation != null) {
+                    retVal = annotation.getText().replace("\n", "");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (retVal == null) {
-                return null;
-            }
-            return retVal.replace("\n", "");
+            return retVal;
         }
 
         @Override

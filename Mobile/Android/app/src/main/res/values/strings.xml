@@ -22,6 +22,7 @@
     <string name="registeredMemberCounts">参加人数:</string>
     <string name="button_to_camera">お酒を探す</string>
     <string name="btn_take_picture">これ飲みたい</string>
+    <string name="not_detect_ocr_text">判定できませんでした</string>
     <!-- 例外系 -->
     <string name="err_message_illegal">予期せぬエラーが発生しました</string>
 

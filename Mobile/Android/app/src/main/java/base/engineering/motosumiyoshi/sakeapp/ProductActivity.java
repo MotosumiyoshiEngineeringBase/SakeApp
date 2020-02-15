@@ -63,17 +63,17 @@ public class ProductActivity extends AppCompatActivity {
 
         // 画像からテキストを抽出
         VisionApiWrapper visionApi = new VisionApiWrapper();
+        TextView capturedImageLabel = findViewById(R.id.label_captured_img);
         visionApi.execOCR(cameraImage, new VisionApiWrapper.VisionApiCallback() {
             @Override
             public void onSuccess(String result) {
-                TextView capturedImageLabel = findViewById(R.id.label_captured_img);
                 capturedImageLabel.setText(result);
                 showProduct(result);
             }
 
             @Override
             public void onFail() {
-                // TODO
+                capturedImageLabel.setText(getString(R.string.not_detect_ocr_text));
             }
         });
     }
