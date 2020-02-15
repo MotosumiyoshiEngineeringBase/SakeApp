@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case to_group:
                         startActivity(
-                                new Intent(getApplicationContext(), CommunicationActivity.class));
+                                new Intent(getApplicationContext(), LoginActivity.class));
                         return true;
                     case to_camera:
                         startActivity(

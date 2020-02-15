@@ -31,6 +31,7 @@ public class Member {
 
     @SerializedName("self")
     private Boolean self;
+    public Boolean isSelf() {return this.self; }
 
     @SerializedName("self_introduction")
     private Boolean self_introduction;

@@ -5,6 +5,12 @@
     <string name="activity_community_timeline">タイムライン</string>
     <!-- トップ画面 -->
     <string name="explain">酒好きの、酒好きによる、酒好きのためのアプリ</string>
+    <!-- ログイン画面 -->
+    <string name="prompt_email">メールアドレス</string>
+    <string name="prompt_password">パスワード</string>
+    <string name="action_sign_in_short">パスワード入力</string>
+    <string name="action_login">ログイン</string>
+    <string name="title_activity_login">ログイン</string>
     <!-- UIパーツ -->
     <string name="button_to_group">飲みにケーション</string>
     <string name="button_to_top">トップに戻る</string>

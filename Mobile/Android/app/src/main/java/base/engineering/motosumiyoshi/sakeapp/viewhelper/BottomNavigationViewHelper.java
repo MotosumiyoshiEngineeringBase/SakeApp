@@ -28,10 +28,7 @@ public class BottomNavigationViewHelper {
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 //アイテムの幅調整
                 BottomNavigationItemView bottomNavigationItemView = (BottomNavigationItemView) menuView.getChildAt(i);
-                // noinspection RestrictedApi
                 bottomNavigationItemView.setShiftingMode(false);
-                // チェックされた値を設定すると、ビューが更新されるみたい
-                // noinspection RestrictedApi
                 bottomNavigationItemView.setChecked(false);
 
                 final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
@@ -42,9 +39,9 @@ public class BottomNavigationViewHelper {
                 iconView.setLayoutParams(layoutParams);
             }
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            //ignore
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            //ignore
         }
 
     }

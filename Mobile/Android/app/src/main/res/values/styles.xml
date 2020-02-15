@@ -7,5 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/cornflower_blue</item>
+        <item name="colorControlActivated">@color/cornflower_blue_dark</item>>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColorHint">@color/black_10</item>
+        <item name="android:textColorHighlight">@color/black_10</item>
+    </style>
 </resources>

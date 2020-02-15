@@ -25,6 +25,7 @@ import base.engineering.motosumiyoshi.sakeapp.chatkit.commons.models.Message;
 import base.engineering.motosumiyoshi.sakeapp.chatkit.commons.models.User;
 import base.engineering.motosumiyoshi.sakeapp.chatkit.messages.MessagesList;
 import base.engineering.motosumiyoshi.sakeapp.chatkit.messages.MessagesListAdapter;
+import base.engineering.motosumiyoshi.sakeapp.data.ShareData;
 import base.engineering.motosumiyoshi.sakeapp.model.Community;
 import base.engineering.motosumiyoshi.sakeapp.model.CommunityTimeLine;
 import base.engineering.motosumiyoshi.sakeapp.utility.DateFormatter;
@@ -32,17 +33,24 @@ import base.engineering.motosumiyoshi.sakeapp.utility.DateFormatter;
 //OpenPNEのApiWrapperクラスです。
 public class OpenPNEApiWrapper extends OkHttpCaller {
 
-    private String SCHEME = "http";
-    private String DOMAIN = "motosumiengineer.pne.jp";
-    private String APIKEY = "8b4dfc3a01fe1629c8fa66913d4450c99cc8e674773db935e5cbc91abbab9940";
+    private static String SCHEME;
+    private static String DOMAIN;
+    private static String APIKEY;
+
+    static {
+        ShareData data = ShareData.getInstance();
+        SCHEME = data.getSCHEME();
+        DOMAIN = data.getDOMAIN();
+        APIKEY = data.getApiKey();
+    }
 
     private Context context;
 
-    public OpenPNEApiWrapper (Context context) {
+    public OpenPNEApiWrapper(Context context) {
         this.context = context;
     }
 
-    public void getTimeLine (TextView targetView) {
+    public void getTimeLine(TextView targetView) {
         String SEARCH_ACTIVITY_PATH = "/api.php/activity/search.json";
         Uri uri = new Uri.Builder()
                 .scheme(SCHEME)
@@ -54,11 +62,13 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
         call(uri.toString(), targetView, "getTimeLine");
     }
 
-    /** コミュニティを検索するメソッド。
-     * @param word 検索キーワード。nullの場合は全コミュニティを検索する。
+    /**
+     * コミュニティを検索するメソッド。
+     *
+     * @param word       検索キーワード。nullの場合は全コミュニティを検索する。
      * @param targetView 本メソッドの検索結果を表示するListView
-     * */
-    public void searchCommunity (String word, ListView targetView) {
+     */
+    public void searchCommunity(String word, ListView targetView) {
         String SEARCH_ACTIVITY_PATH = "/api.php/community/search.json";
         Uri uri = new Uri.Builder()
                 .scheme(SCHEME)
@@ -71,11 +81,11 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
     }
 
     /**
-     * @param community_id *必須	取得したいコミュニティタイムラインの、コミュニティIDを指定します。
-     * @param searchMaxSize	取得したいタイムラインの、取得件数を指定します。デフォルトは20。
-     * */
-    public void searchCommunityTimeLine (long community_id, int searchMaxSize,
-                                         MessagesList targetView) {
+     * @param community_id  *必須	取得したいコミュニティタイムラインの、コミュニティIDを指定します。
+     * @param searchMaxSize 取得したいタイムラインの、取得件数を指定します。デフォルトは20。
+     */
+    public void searchCommunityTimeLine(long community_id, int searchMaxSize,
+                                        MessagesList targetView) {
         String SEARCH_ACTIVITY_PATH = "/api.php/activity/community.json";
         Uri uri = new Uri.Builder()
                 .scheme(SCHEME)
@@ -89,13 +99,13 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
     }
 
     /**
-     * @param body *必須	タイムラインの本文を指定します。
-     * @param public_flag    タイムラインの公開範囲を指定します。
-     * @param in_reply_to_activity_id    タイムラインの返信先IDを指定します。
-     * @param communityUri    タイムライン投稿元のURIを指定します。
-     * @param target    タイムラインの種類を指定します。例えば、コミュニティタイムラインに投稿したい場合はcommunityを指定します。
-     * @param target_id    タイムラインの種類のIDを指定します。targetが指定されている場合は*必須項目です。
-     * */
+     * @param body                    *必須	タイムラインの本文を指定します。
+     * @param public_flag             タイムラインの公開範囲を指定します。
+     * @param in_reply_to_activity_id タイムラインの返信先IDを指定します。
+     * @param communityUri            タイムライン投稿元のURIを指定します。
+     * @param target                  タイムラインの種類を指定します。例えば、コミュニティタイムラインに投稿したい場合はcommunityを指定します。
+     * @param target_id               タイムラインの種類のIDを指定します。targetが指定されている場合は*必須項目です。
+     */
     public void postMessegeToCommunity(String body,
                                        int public_flag,
                                        int in_reply_to_activity_id,
@@ -120,19 +130,19 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
     }
 
     /**
-     * @param target *必須	string	topic､community､memberが指定可能です｡
-     *        topic : 一件のトピックを取得します
-     *        community : コミュニティのトピック一覧を取得します
-     *        member : メンバーの所属するコミュニティのトピック一覧を取得します
-     * @param target_id *必須	integer	targetがtopicの場合はtopic_idを､targetがcommunityの場合はcommunity_idを､targetがmemberの場合はmember_idを指定します｡
-     * @param format    string	取得フォーマットを指定します｡miniとnormalが指定できます｡このフィールドがない場合はnormalフォーマットになります｡
-     * @param max_id    integer	取得したいトピックIDの最大値を指定します。
-     * @param since_id    integer	取得したいトピックIDの最小値を指定します。
-     * @param searchMaxSize    integer	取得したいトピックの、取得件数を指定します。このパラメータを指定しなかった場合のデフォルトは15です。
-     * */
-    public void searchCommunityTopics (String target, long target_id, String format, int since_id,
-                                       int max_id, int searchMaxSize,
-                                         ListView targetView) {
+     * @param target        *必須	string	topic､community､memberが指定可能です｡
+     *                      topic : 一件のトピックを取得します
+     *                      community : コミュニティのトピック一覧を取得します
+     *                      member : メンバーの所属するコミュニティのトピック一覧を取得します
+     * @param target_id     *必須	integer	targetがtopicの場合はtopic_idを､targetがcommunityの場合はcommunity_idを､targetがmemberの場合はmember_idを指定します｡
+     * @param format        string	取得フォーマットを指定します｡miniとnormalが指定できます｡このフィールドがない場合はnormalフォーマットになります｡
+     * @param max_id        integer	取得したいトピックIDの最大値を指定します。
+     * @param since_id      integer	取得したいトピックIDの最小値を指定します。
+     * @param searchMaxSize integer	取得したいトピックの、取得件数を指定します。このパラメータを指定しなかった場合のデフォルトは15です。
+     */
+    public void searchCommunityTopics(String target, long target_id, String format, int since_id,
+                                      int max_id, int searchMaxSize,
+                                      ListView targetView) {
         String SEARCH_ACTIVITY_PATH = "/api.php/topic/search.json";
         Uri uri = new Uri.Builder()
                 .scheme(SCHEME)
@@ -151,12 +161,18 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
 
     @Override
     public void onResponseReceived(String responseBody, View targetView, String methodName) {
+        //FIXME 権限のない操作をした場合は403がリプライされる。
+        if (responseBody.contains("403")) {
+            //TODO エラーを返してあげよう
+            return;
+        }
+
         Gson gson = new Gson();
         //FIXME responseが401とかだと、JsonObjectのparseで落ちる。ので対応が必要。
         JsonObject jsonObj = (JsonObject) new Gson().fromJson(responseBody, JsonObject.class);
 
         JsonElement responseStatus = jsonObj.get("status");
-        if("error".equals(responseStatus.getAsString())){
+        if ("error".equals(responseStatus.getAsString())) {
             //setText("error");
             return;
         }
@@ -165,23 +181,25 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
         if ("getTimeLine".equals(methodName)) { //タイムライン取得の場合
         } else if ("searchCommunity".equals(methodName)) { //コミュニティ検索の場合
             JsonArray jsonAry = jsonObj.get("data").getAsJsonArray();
-            List<Community> communityList = gson.fromJson( jsonAry, new TypeToken<ArrayList<Community>>(){}.getType());
+            List<Community> communityList = gson.fromJson(jsonAry, new TypeToken<ArrayList<Community>>() {
+            }.getType());
             ListView listview = (ListView) targetView;
             CommunityListAdapter adapter = new CommunityListAdapter(this.context, R.layout.community_list);
             adapter.setCommunityList(communityList);
             listview.setAdapter(adapter);
-        } else if ("searchCommunityTimeLine".equals(methodName))  {  //特定コミュニティのタイムライン取得
+        } else if ("searchCommunityTimeLine".equals(methodName)) {  //特定コミュニティのタイムライン取得
             JsonArray jsonAry = jsonObj.get("data").getAsJsonArray();
-            List<CommunityTimeLine> community = gson.fromJson( jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>(){}.getType());
+            List<CommunityTimeLine> community = gson.fromJson(jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>() {
+            }.getType());
             ArrayList<Message> messages = new ArrayList<>();
             if (community != null && !community.isEmpty()) {
                 for (CommunityTimeLine timeLine : community) {
-                    User user = new User(timeLine.getMember().getName(), timeLine.getMember().getName(), timeLine.getMember().getProfileImage(), false);
+                    User user = new User(timeLine.getMember().getName(), timeLine.getMember().getName(), timeLine.getMember().getProfileImage(), false, timeLine.getMember().isSelf());
                     messages.add(new Message(
-                                String.valueOf(timeLine.getId()),
-                                user,
-                                timeLine.getBody(),
-                                DateFormatter.stringToDate(timeLine.getCreatedDate(), "EEE, dd MMM yyyy HH:mm:ss Z"))
+                            String.valueOf(timeLine.getId()),
+                            user,
+                            timeLine.getBody(),
+                            DateFormatter.stringToDate(timeLine.getCreatedDate(), "EEE, dd MMM yyyy HH:mm:ss Z"))
                     );
                 }
                 //サンプルデータ
@@ -205,13 +223,14 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
 
             MessagesList messagesList = (MessagesList) targetView;
             messagesList.setAdapter(adapter);
-        } else if ("postMessageToCommunity".equals(methodName))  {  //特定コミュニティのタイムライン取得
+        } else if ("postMessageToCommunity".equals(methodName)) {  //特定コミュニティのタイムライン取得
             MessagesList messagesList = (MessagesList) targetView;
             MessagesListAdapter<Message> adapter = (MessagesListAdapter<Message>) messagesList.getAdapter();
 
             JsonElement json = jsonObj.get("data");
-            CommunityTimeLine response = gson.fromJson( json, new TypeToken<CommunityTimeLine>(){}.getType());
-            User user = new User(response.getMember().getName(), response.getMember().getName(), response.getMember().getProfileImage(), false);
+            CommunityTimeLine response = gson.fromJson(json, new TypeToken<CommunityTimeLine>() {
+            }.getType());
+            User user = new User(response.getMember().getName(), response.getMember().getName(), response.getMember().getProfileImage(), false, response.getMember().isSelf());
             Message sendedMessage = new Message(
                     String.valueOf(response.getId()),
                     user,
@@ -220,9 +239,10 @@ public class OpenPNEApiWrapper extends OkHttpCaller {
             adapter.addToStart(sendedMessage, true);
             messagesList.setAdapter(adapter);
 
-        } else if ("searchCommunityTopics".equals(methodName))  {  //特定コミュニティのトピックス取得
+        } else if ("searchCommunityTopics".equals(methodName)) {  //特定コミュニティのトピックス取得
             JsonArray jsonAry = jsonObj.get("data").getAsJsonArray();
-            List<CommunityTimeLine> community = gson.fromJson( jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>(){}.getType());
+            List<CommunityTimeLine> community = gson.fromJson(jsonAry, new TypeToken<ArrayList<CommunityTimeLine>>() {
+            }.getType());
             ListView listview = (ListView) targetView;
             CommunityTimeLineListAdapter adapter = new CommunityTimeLineListAdapter(this.context, R.layout.community_list);
             adapter.setCommunityList(community);
