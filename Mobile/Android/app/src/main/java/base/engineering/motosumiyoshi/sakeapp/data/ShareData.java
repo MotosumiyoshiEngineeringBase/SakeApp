@@ -19,7 +19,6 @@ public class ShareData extends Application {
     }
 
     //認証後のAPIキー
-    //private String apiKey = "8b4dfc3a01fe1629c8fa66913d4450c99cc8e674773db935e5cbc91abbab9940";
     private String apiKey = "";
     public String getApiKey() {
         return apiKey;

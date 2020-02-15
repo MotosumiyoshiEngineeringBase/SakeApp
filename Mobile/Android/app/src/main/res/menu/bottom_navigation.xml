@@ -13,8 +13,8 @@
         android:title="@string/button_to_group" />
 
     <item
-        android:id="@+id/to_login"
-        android:icon="@android:drawable/ic_dialog_alert"
-        android:title="その他" />
+        android:id="@+id/to_broadcast"
+        android:icon="@android:drawable/ic_menu_call"
+        android:title="ライブ配信" />
 
 </menu>

@@ -10,8 +10,12 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.webkit.WebView;
 
+import base.engineering.motosumiyoshi.sakeapp.activities.community.CommunicationActivity;
+import base.engineering.motosumiyoshi.sakeapp.activities.community.LoginActivity;
+import base.engineering.motosumiyoshi.sakeapp.activities.videobroadcast.VideoBroadcastActivity;
 import base.engineering.motosumiyoshi.sakeapp.viewhelper.BottomNavigationViewHelper;
 
+import static base.engineering.motosumiyoshi.sakeapp.R.id.to_broadcast;
 import static base.engineering.motosumiyoshi.sakeapp.R.id.to_camera;
 import static base.engineering.motosumiyoshi.sakeapp.R.id.to_group;
 
@@ -39,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
                     case to_camera:
                         startActivity(
                                 new Intent(getApplicationContext(), CameraActivity.class));
+                        return true;
+                    case to_broadcast:
+                        startActivity(
+                                new Intent(getApplicationContext(), VideoBroadcastActivity.class));
                         return true;
                 }
                 return false;
@@ -71,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
             case to_camera:
                 startActivity(
                         new Intent(getApplicationContext(), CameraActivity.class));
+                return true;
+            case to_broadcast:
+                startActivity(
+                        new Intent(getApplicationContext(), VideoBroadcastActivity.class));
                 return true;
         }
         return false;
